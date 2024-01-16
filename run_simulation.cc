@@ -10,6 +10,7 @@
 #include "simulate_system.h"
 #include "common.h"
 #include "cheby.h"
+#include "ev.h"
 
 using namespace std;
 
@@ -63,21 +64,38 @@ SimulationResult run_simulations(vector <double> &load, vector <double> &solar, 
 }
 
 int main(int argc, char ** argv) {
-	
+
 	int input_process_status = process_input(argv, true);
 
-	if (input_process_status) {
-		cerr << "Illegal input" << endl;
-		return 1;
+	// Handle input processing error if needed
+	if (input_process_status != 0)
+	{
+		std::cerr << "Error processing input" << std::endl;
+		return 1; // Or handle the error as appropriate
 	}
-	
+
+	// Read EV data
+	std::vector<EVRecord> evRecords = readEVData("ev.csv");
+
+	// Check if EV data was read successfully
+	if (evRecords.empty())
+	{
+		std::cerr << "Error reading EV data or no records found" << std::endl;
+		return 1; // Or handle the error as appropriate
+	}
+
+	// Initialize EVStatus
+	EVStatus evStatus;
+	//printEVRecords(evRecords);
+
+	// Generate all daily statuses
+	std::vector<std::vector<EVStatus>> allDailyStatuses = generateAllDailyStatuses(evRecords);
+	printAllEVStatuses(allDailyStatuses, evRecords);
+
 	SimulationResult sr = run_simulations(load, solar, metric, days_in_chunk, number_of_chunks);
 
-	// a temporary fix for "inf" issues.
-	// TODO: investigate later why some sr.cost == inf when B or C are low
-	
 	double cost = sr.B / kWh_in_one_cell * B_inv + sr.C * PV_inv;
-	cout << sr.B << "\t" << sr.C << "\t" << cost << endl;
+	cout << "Battery: " << sr.B << "\tPV: " << sr.C << "\tCost: " << cost << endl;
 
 	return 0;
 }

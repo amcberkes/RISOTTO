@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "simulate_system.h"
+#include "ev.h"
 
 using namespace std;
 
@@ -81,6 +82,8 @@ double sim(vector <double> &load_trace, vector <double> &solar_trace, int start_
 	int index_t_load;
 	// loop through each hour 
 	for (int t = start_index; t < end_index; t++) {
+
+		//updateEVStatus(evStatus, t);
 
 		// wrap around to the start of the trace if we hit the end.
 		index_t_solar = t % trace_length_solar;

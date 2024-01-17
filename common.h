@@ -29,6 +29,7 @@ extern double pv_max;
 extern double pv_step; // search in steps of x kW
 
 
+
 // CONSTANTS
 
 // defines the number of samples, set via command line input
@@ -57,23 +58,8 @@ vector<double> read_data_from_file(string);
 
 int process_input(char**, bool);
 
-enum class EVChargingPolicy
-{
-	Naive,
-	Last,
-	MinCost
-};
 
-enum class OperationPolicy
-{
-	Unidirectional,
-	MostSustainable,
-	RDegradation,
-	MinStorage
-};
 
- extern EVChargingPolicy selectedEVChargingPolicy;
- extern OperationPolicy selectedOperationPolicy;
 
 
 #endif

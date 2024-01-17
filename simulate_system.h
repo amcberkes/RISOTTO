@@ -26,8 +26,8 @@ double static eta_c_ev = 0.935;
 double static alpha_d_ev = 7.4; // the 1 indicates the maximum discharging C-rate
 double static alpha_c_ev = 7.4; // the 1 indicates the maximum charging C-rate
 double static max_soc = 0.8;
-double static min_soc = 0.2;
-double static ev_battery_capacity = 40.0; // kWh
+double  static min_soc = 0.2;
+double  static ev_battery_capacity = 40.0; // kWh
 
 
 double sim(vector <double> &load_trace, vector <double> &solar_trace, int start_index, int end_index,

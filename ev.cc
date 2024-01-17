@@ -123,13 +123,6 @@ void printEVRecords(const std::vector<EVRecord> &evRecords)
     }
 }
 
-// print ev status objects to test
-
-#include "ev.h"
-#include <vector>
-#include <string>
-#include <iostream>
-
 int convertTimeToHour(const std::string &timeStr)
 {
     if (timeStr == "No trips")
@@ -157,7 +150,7 @@ int convertTimeToHour(const std::string &timeStr)
     }
 }
 
-std::vector<EVStatus> generateDailyStatus(const std::vector<EVRecord> &dayRecords)
+std::vector<EVStatus> generateDailyStatus(const std::vector<EVRecord> &dayRecords, double &previousSOC)
 {
     std::vector<EVStatus> hourlyStatuses(24); // 24 hours in a day
 
@@ -225,10 +218,12 @@ std::vector<EVStatus> generateDailyStatus(const std::vector<EVRecord> &dayRecord
     }
 
     // Part 3: Logic to fill the currentSOC value of all EVStatus objects
-    double previousSOC = 0.0; // Initial SOC value
 
     for (int hour = 0; hour < 24; ++hour)
     {
+        // Set the day number, day name, and hour for each EVStatus object
+        
+        hourlyStatuses[hour].hour = hour;
         // Use the SOC value from the previous hour
         hourlyStatuses[hour].currentSOC = previousSOC;
 
@@ -239,6 +234,8 @@ std::vector<EVStatus> generateDailyStatus(const std::vector<EVRecord> &dayRecord
             {
                 int departureHour = convertTimeToHour(record.departureTime);
                 int arrivalHour = convertTimeToHour(record.arrivalTime);
+                hourlyStatuses[hour].dayNumber = record.day;
+                hourlyStatuses[hour].dayName = record.weekday;
 
                 if (hour == departureHour)
                 {
@@ -273,47 +270,59 @@ int findNumberOfDays(const std::vector<EVRecord> &evRecords)
     return maxDay;
 }
 
-std::vector<std::vector<EVStatus>> generateAllDailyStatuses(const std::vector<EVRecord> &evRecords)
+std::vector<std::vector<EVStatus>> generateAllDailyStatuses(const std::vector<EVRecord> &allRecords)
 {
-    int numDays = findNumberOfDays(evRecords);
     std::vector<std::vector<EVStatus>> allDailyStatuses;
+    double lastDaySOC = 32.0; // Initial SOC value for the first day
 
-    for (int day = 1; day <= numDays; ++day)
+    int currentDay = 1;
+    std::vector<EVRecord> dayRecords;
+
+    // Loop through all records and process each day
+    for (const auto &record : allRecords)
     {
-        std::vector<EVRecord> dayRecords;
-        // Find all records for the current day
-        for (const auto &record : evRecords)
+        if (record.day != currentDay)
         {
-            if (record.day == day)
-            {
-                dayRecords.push_back(record);
-            }
-        }
+            // Generate daily status for the previous day and add to allDailyStatuses
+            auto dailyStatuses = generateDailyStatus(dayRecords, lastDaySOC);
+            allDailyStatuses.push_back(dailyStatuses);
 
-        // Generate hourly status for this day
-        std::vector<EVStatus> dailyStatus = generateDailyStatus(dayRecords);
-        allDailyStatuses.push_back(dailyStatus);
+            // Update lastDaySOC with the last SOC value of the previous day
+            if (!dailyStatuses.empty())
+            {
+                lastDaySOC = dailyStatuses.back().currentSOC;
+            }
+
+            // Reset for the next day
+            dayRecords.clear();
+            currentDay = record.day;
+        }
+        dayRecords.push_back(record);
     }
+
+    // Generate and add the last day's statuses
+    auto lastDayStatuses = generateDailyStatus(dayRecords, lastDaySOC);
+    allDailyStatuses.push_back(lastDayStatuses);
 
     return allDailyStatuses;
 }
 
 void printAllEVStatuses(const std::vector<std::vector<EVStatus>> &allDailyStatuses, const std::vector<EVRecord> &evRecords)
 {
-    int dayNumber = 1;
     for (const auto &dailyStatuses : allDailyStatuses)
     {
-        std::cout << "Day " << dayNumber << ":" << std::endl;
-        for (int hour = 0; hour < dailyStatuses.size(); ++hour)
+        if (!dailyStatuses.empty())
         {
-            const auto &status = dailyStatuses[hour];
-            const auto &record = evRecords[hour + (dayNumber - 1) * 24]; // Assuming 24 hours per day
+            std::cout << "Day " << dailyStatuses[0].dayNumber
+                      << " (" << dailyStatuses[0].dayName << "):" << std::endl;
+        }
 
-            std::cout << "  Hour " << std::setw(2) << hour << ": ";
+        for (const auto &status : dailyStatuses)
+        {
+            std::cout << "  Hour " << std::setw(2) << status.hour << ": ";
             std::cout << (status.isAtHome ? "At Home" : "Away");
             std::cout << ", Next Departure Time: " << status.nextDepartureTime;
             std::cout << ", Current SOC: " << std::fixed << std::setprecision(2) << status.currentSOC << std::endl;
         }
-        ++dayNumber;
     }
 }

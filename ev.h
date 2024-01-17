@@ -21,8 +21,12 @@ struct EVRecord
 
 extern std::vector<EVRecord> evRecords;
 
+
 struct EVStatus
 {
+    int dayNumber;       // New field for day number
+    std::string dayName; // New field for day name
+    int hour;            // New field for hour
     bool isAtHome;
     std::string nextDepartureTime;
     double currentSOC;

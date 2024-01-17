@@ -4,6 +4,7 @@
 
 #include <vector>
 #include "common.h"
+#include "ev.h"
 
 using namespace std;
 
@@ -19,10 +20,20 @@ double static eta_c = 0.9942;
 double static alpha_d = a2_intercept*1.0; // the 1 indicates the maximum discharging C-rate
 double static alpha_c = a2_intercept*1.0; // the 1 indicates the maximum charging C-rate
 
+
+double static eta_d_ev = 0.935; // taking reciprocal so that we don't divide by eta_d when updating the battery energy content
+double static eta_c_ev = 0.935;
+double static alpha_d_ev = 7.4; // the 1 indicates the maximum discharging C-rate
+double static alpha_c_ev = 7.4; // the 1 indicates the maximum charging C-rate
+double static max_soc = 0.8;
+double static min_soc = 0.2;
+double static ev_battery_capacity = 40.0; // kWh
+
+
 double sim(vector <double> &load_trace, vector <double> &solar_trace, int start_index, int end_index,
-				 double cells, double pv, double b_0);
+				 double cells, double pv, double b_0, std::vector<EVRecord> evRecords, std::vector<std::vector<EVStatus>> allDailyStatuses);
 
 vector<SimulationResult> simulate(vector <double> &load_trace, vector <double> &solar_trace, int start_index, int end_index,
-						 double b_0);
+						 double b_0, std::vector<EVRecord> evRecords, std::vector<std::vector<EVStatus>> allDailyStatuses);
 
 #endif

@@ -39,6 +39,8 @@ double static kWh_in_one_cell = 0.011284;
 double static num_cells_steps = 400; // search in total of n steps for cells
 double static num_pv_steps = 350; // search in total of n steps for pv
 
+int static t_ch = 3; // cheapest charging time 
+
 
 struct SimulationResult {
 
@@ -54,5 +56,24 @@ struct SimulationResult {
 vector<double> read_data_from_file(string);
 
 int process_input(char**, bool);
+
+enum class EVChargingPolicy
+{
+	Naive,
+	Last,
+	MinCost
+};
+
+enum class OperationPolicy
+{
+	Unidirectional,
+	MostSustainable,
+	RDegradation,
+	MinStorage
+};
+
+ extern EVChargingPolicy selectedEVChargingPolicy;
+ extern OperationPolicy selectedOperationPolicy;
+
 
 #endif

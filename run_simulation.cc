@@ -21,7 +21,7 @@ using namespace std;
 // metric: 0 for LOLP, 1 for unmet load
 // epsilon: number in range [0,1] representing LOLP or unmet load fraction.
 // chunk_size: length of time (in days)
-SimulationResult run_simulations(vector <double> &load, vector <double> &solar, int metric, int chunk_size, int number_of_chunks) {
+SimulationResult run_simulations(vector<double> &load, vector<double> &solar, int metric, int chunk_size, int number_of_chunks, std::vector<EVRecord> evRecords, std::vector<std::vector<EVStatus>> allDailyStatuses) {
 
 	// set random seed to a specific value if you want consistency in results
 	srand(10);
@@ -39,7 +39,30 @@ SimulationResult run_simulations(vector <double> &load, vector <double> &solar, 
 		int chunk_start = rand() % max(solar.size(),load.size());
 		int chunk_end = chunk_start + t_chunk_size;
 
-		vector <SimulationResult> sr = simulate(load, solar, chunk_start, chunk_end, 0);
+		vector <SimulationResult> sr = simulate(load, solar, chunk_start, chunk_end, 0, evRecords, allDailyStatuses);
+		//saves the sizing curve for this sample 
+		results.push_back(sr);
+
+	}
+{
+
+	// set random seed to a specific value if you want consistency in results
+	srand(10);
+
+	// get number of timeslots in each chunk
+	//zb 100 days a 24h if we have hourly data in the input files 
+	int t_chunk_size = chunk_size*(24/T_u);
+
+	vector <vector<SimulationResult> > results;
+
+	// get random start times and run simulation on this chunk of data
+	// compute all sizing curves
+	for (int chunk_num = 0; chunk_num < number_of_chunks; chunk_num += 1) {
+
+		int chunk_start = rand() % max(solar.size(),load.size());
+		int chunk_end = chunk_start + t_chunk_size;
+
+		vector <SimulationResult> sr = simulate(load, solar, chunk_start, chunk_end, 0, evRecords, allDailyStatuses);
 		//saves the sizing curve for this sample 
 		results.push_back(sr);
 
@@ -62,8 +85,10 @@ SimulationResult run_simulations(vector <double> &load, vector <double> &solar, 
 	// returns the optimal result 
 	return calculate_sample_bound(results, epsilon, confidence);
 }
+}
 
-int main(int argc, char ** argv) {
+int main(int argc, char ** argv) 
+{
 
 	int input_process_status = process_input(argv, true);
 
@@ -86,13 +111,13 @@ int main(int argc, char ** argv) {
 
 	// Initialize EVStatus
 	EVStatus evStatus;
-	//printEVRecords(evRecords);
+	printEVRecords(evRecords);
 
 	// Generate all daily statuses
 	std::vector<std::vector<EVStatus>> allDailyStatuses = generateAllDailyStatuses(evRecords);
-	printAllEVStatuses(allDailyStatuses, evRecords);
+	//printAllEVStatuses(allDailyStatuses, evRecords);
 
-	SimulationResult sr = run_simulations(load, solar, metric, days_in_chunk, number_of_chunks);
+	SimulationResult sr = run_simulations(load, solar, metric, days_in_chunk, number_of_chunks, evRecords, allDailyStatuses);
 
 	double cost = sr.B / kWh_in_one_cell * B_inv + sr.C * PV_inv;
 	cout << "Battery: " << sr.B << "\tPV: " << sr.C << "\tCost: " << cost << endl;

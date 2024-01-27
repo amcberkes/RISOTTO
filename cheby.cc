@@ -31,7 +31,7 @@ double std_dev(vector <double> &values, double mean) {
     return sqrt(std_dev / n);
 }
 
-
+// create sizing curves out of sizing tuples
 double interpolate(vector<double> &xData, vector<double> &yData, double x, bool extrapolate) {
    
    	int size = xData.size();
@@ -196,7 +196,7 @@ SimulationResult calculate_sample_bound(vector < vector <SimulationResult> > &si
 	// Grid search to find the smallest C for each B. store C and B that give min cost.
 
 	for (double B_val = 0.0; B_val <= cells_max * kWh_in_one_cell; B_val += cells_step * kWh_in_one_cell) {
-
+		//get curves out of cheby values
 		double C1 = interpolate(cheby_on_B[1], cheby_on_B[0], B_val, false);
 		double C2 = interpolate(cheby_on_C[0], cheby_on_C[1], B_val, false);
 
@@ -212,6 +212,7 @@ SimulationResult calculate_sample_bound(vector < vector <SimulationResult> > &si
 		}
 
 		double cost = B_inv * (B_val / kWh_in_one_cell) + PV_inv * C_max;
+		// try out all b values on the upper envelope and the matching c value on upper envelope, see which combi brings min cost 
 		if (cost < lowest_cost) {
 			lowest_cost = cost;
 			lowest_B = B_val;

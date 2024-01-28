@@ -369,127 +369,151 @@ double sim(vector<double> &load_trace, vector<double> &solar_trace, int start_in
 	bool charged_last_hour = false;
 	int EV_index = Ev_start;
 	
-	// loop through each hour 
-	for (int t = start_index; t < end_index; t++) {
-		bool z = false;
+	// loop through each hour
+	int trace_days = min(trace_length_load / 24, trace_length_solar / 24);
+	int load_s_Start_day = rand() % trace_days;
+	start_index = load_s_Start_day * 24;
+	for (int day = 0; day < number_of_chunks; day++) {
+		int ev_day = day + Ev_start;
+		ev_day = ev_day % 365;
+		for (int hour = 0; hour < 24; hour++){
+			bool z = false;
 
-		// wrap around to the start of the trace if we hit the end.
-		index_t_solar = t % trace_length_solar;
-		index_t_load = t % trace_length_load;
-		EV_index = EV_index % 365;
-
-		load_sum += load_trace[index_t_load];
-
-		int index = t - start_index;
-		hour = index % 24;
-		day =  index / 24;
-		int day2 = day +1;
+			// wrap around to the start of the trace if we hit the end.
+			int t = day * 24 + start_index + hour;
+			index_t_solar = t % trace_length_solar;
+			index_t_load = t % trace_length_load;
 		
-		bool is_home = allDailyStatuses[day][hour].isAtHome;
-		c2 = fmax(solar_trace[index_t_solar] * pv - load_trace[index_t_load], 0);
-		d2 = fmax(load_trace[index_t_load] - solar_trace[index_t_solar] * pv, 0);
-		max_c2 = fmin(calc_max_charging(c2, b), alpha_c);
-		max_d2 = fmin(calc_max_discharging(d2, b), alpha_d);
 
-		std::pair<double, double> operationResult;
-		double ev_b = get_ev_b(allDailyStatuses[EV_index], hour, last_soc);
-		double ev_b_before = ev_b;
-		double maxCharging;
-		//cout << "BEFORE day: " << day << "hour: " << hour << "ev_b: " << ev_b << "b: " << b << "isHome: " << is_home << endl;
-		//cout << "BEFORE c2 without ev load: " << c2 << "d2: " << d2 << "max_c2: " << max_c2 << "max_d2: " << max_d2 << endl;
-		//cout << "operation policy" << Operation_policy << "load_deficit: " << load_deficit << "load_sum" << load_sum <<	endl;
-	
-		if (Operation_policy == "optimal_unidirectional"){
-			// only charge EV with excess solar energy, but not guaranteed that EV will be fully charged
-			operationResult = unidirectional_dynamic(b, ev_b, d2, max_d2, c2, max_c2, is_home);
-		}
-		
-		else if (Operation_policy == "safe_unidirectional"){
-			if(is_home == true){
-				maxCharging = get_maxCharging(ev_b);
-			} else {
-				maxCharging = 0.0;
-			}
-		
-			if(maxCharging > 0){
-				z = true;
-			}
-			double hourly_laod = load_trace[index_t_load] + maxCharging;
-			c = fmax(solar_trace[index_t_solar] * pv - hourly_laod, 0);
-			d = fmax(hourly_laod - solar_trace[index_t_solar] * pv, 0);
-			max_c = fmin(calc_max_charging(c, b), alpha_c);
-			max_d = fmin(calc_max_discharging(d, b), alpha_d);
+			load_sum += load_trace[index_t_load];
 
-			operationResult = unidirectional_static(b, ev_b, c, d, z, max_c, max_d, maxCharging, is_home);
-		}
-		else if (Operation_policy == "hybrid_unidirectional")
-		{
 		
-			int chargingHour = lastp(allDailyStatuses[EV_index], ev_b, hour);
-			double maxCharging = 0.0;
-			if (chargingHour == hour){
-				z = true;
-				maxCharging = get_maxCharging(ev_b);
-			} else{
-				z = false;
-			}
-			double hourly_laod = load_trace[index_t_load] + maxCharging;
-			c = fmax(solar_trace[index_t_solar] * pv - hourly_laod, 0);
-			d = fmax(hourly_laod - solar_trace[index_t_solar] * pv, 0);
-			max_c = fmin(calc_max_charging(c, b), alpha_c);
-			max_d = fmin(calc_max_discharging(d, b), alpha_d);
-		
-			operationResult = unidirectional_hybrid(b, ev_b, c, d, z, max_c, max_d, maxCharging, is_home);
-		}
-		else if (Operation_policy == "optimal_bidirectional"){
-			operationResult = bidirectional_optimal(b, ev_b, c2, d2, z, max_c2, max_d2, is_home);
-		}
-		else if (Operation_policy == "safe_bidirectional"){
-			// wir gucken jedes mal ob man ev chargen kann, und wenn ja, chargen wir.
-			//nicht kurz vor departure dischargen
-			// hier computen ob man ev chargen kann
-			bool dont_discharge = false;
-			if (convertTimeToHour(allDailyStatuses[EV_index][hour].nextDepartureTime) == hour + 1){
-				// do not discharge if the EV is about to leave
-				dont_discharge = true;
-			}
-			if (is_home == true){
-				maxCharging = get_maxCharging(ev_b);
-			} else{
-				maxCharging = 0.0;
+
+			bool is_home = allDailyStatuses[ev_day][hour].isAtHome;
+			c2 = fmax(solar_trace[index_t_solar] * pv - load_trace[index_t_load], 0);
+			d2 = fmax(load_trace[index_t_load] - solar_trace[index_t_solar] * pv, 0);
+			max_c2 = fmin(calc_max_charging(c2, b), alpha_c);
+			max_d2 = fmin(calc_max_discharging(d2, b), alpha_d);
+
+			std::pair<double, double> operationResult;
+			double ev_b = get_ev_b(allDailyStatuses[ev_day], hour, last_soc);
+			double ev_b_before = ev_b;
+			double maxCharging;
+			// cout << "BEFORE day: " << day << "hour: " << hour << "ev_b: " << ev_b << "b: " << b << "isHome: " << is_home << endl;
+			// cout << "BEFORE c2 without ev load: " << c2 << "d2: " << d2 << "max_c2: " << max_c2 << "max_d2: " << max_d2 << endl;
+			// cout << "operation policy" << Operation_policy << "load_deficit: " << load_deficit << "load_sum" << load_sum <<	endl;
+
+			if (Operation_policy == "optimal_unidirectional")
+			{
+				// only charge EV with excess solar energy, but not guaranteed that EV will be fully charged
+				operationResult = unidirectional_dynamic(b, ev_b, d2, max_d2, c2, max_c2, is_home);
 			}
 
-			if (maxCharging > 0){
-				z = true;
-			}
-			//charging load ist in c und d schon mit eingerechnet
-			double hourly_laod = load_trace[index_t_load] + maxCharging;
-			c = fmax(solar_trace[index_t_solar] * pv - hourly_laod, 0);
-			d = fmax(hourly_laod - solar_trace[index_t_solar] * pv, 0);
-			max_c = fmin(calc_max_charging(c, b), alpha_c);
-			max_d = fmin(calc_max_discharging(d, b), alpha_d);
+			else if (Operation_policy == "safe_unidirectional")
+			{
+				if (is_home == true)
+				{
+					maxCharging = get_maxCharging(ev_b);
+				}
+				else
+				{
+					maxCharging = 0.0;
+				}
 
-			operationResult = maximise_solar_charging_safe(b, ev_b, c, d, max_c, max_d, is_home, dont_discharge, z, maxCharging);
-		}
-		
-		else if (Operation_policy == "hybrid_bidirectional"){
-			int chargingHour = lastp(allDailyStatuses[EV_index], ev_b, hour);
-			double maxCharging = 0.0;
-			if (chargingHour == hour){
-				z = true;
-				maxCharging = get_maxCharging(ev_b);
-			} else {
-				z = false;
-			}
-			double hourly_laod = load_trace[index_t_load] + maxCharging;
-			c = fmax(solar_trace[index_t_solar] * pv - hourly_laod, 0);
-			d = fmax(hourly_laod - solar_trace[index_t_solar] * pv, 0);
-			max_c = fmin(calc_max_charging(c, b), alpha_c);
-			max_d = fmin(calc_max_discharging(d, b), alpha_d);
+				if (maxCharging > 0)
+				{
+					z = true;
+				}
+				double hourly_laod = load_trace[index_t_load] + maxCharging;
+				c = fmax(solar_trace[index_t_solar] * pv - hourly_laod, 0);
+				d = fmax(hourly_laod - solar_trace[index_t_solar] * pv, 0);
+				max_c = fmin(calc_max_charging(c, b), alpha_c);
+				max_d = fmin(calc_max_discharging(d, b), alpha_d);
 
-			operationResult = maximise_solar_charging(b, ev_b, c, d, z, max_c, max_d, maxCharging, is_home);
-		}
-		else{
+				operationResult = unidirectional_static(b, ev_b, c, d, z, max_c, max_d, maxCharging, is_home);
+			}
+			else if (Operation_policy == "hybrid_unidirectional")
+			{
+
+				int chargingHour = lastp(allDailyStatuses[ev_day], ev_b, hour);
+				double maxCharging = 0.0;
+				if (chargingHour == hour)
+				{
+					z = true;
+					maxCharging = get_maxCharging(ev_b);
+				}
+				else
+				{
+					z = false;
+				}
+				double hourly_laod = load_trace[index_t_load] + maxCharging;
+				c = fmax(solar_trace[index_t_solar] * pv - hourly_laod, 0);
+				d = fmax(hourly_laod - solar_trace[index_t_solar] * pv, 0);
+				max_c = fmin(calc_max_charging(c, b), alpha_c);
+				max_d = fmin(calc_max_discharging(d, b), alpha_d);
+
+				operationResult = unidirectional_hybrid(b, ev_b, c, d, z, max_c, max_d, maxCharging, is_home);
+			}
+			else if (Operation_policy == "optimal_bidirectional")
+			{
+				operationResult = bidirectional_optimal(b, ev_b, c2, d2, z, max_c2, max_d2, is_home);
+			}
+			else if (Operation_policy == "safe_bidirectional")
+			{
+				// wir gucken jedes mal ob man ev chargen kann, und wenn ja, chargen wir.
+				// nicht kurz vor departure dischargen
+				// hier computen ob man ev chargen kann
+				bool dont_discharge = false;
+				if (convertTimeToHour(allDailyStatuses[ev_day][hour].nextDepartureTime) == hour + 1)
+				{
+					// do not discharge if the EV is about to leave
+					dont_discharge = true;
+				}
+				if (is_home == true)
+				{
+					maxCharging = get_maxCharging(ev_b);
+				}
+				else
+				{
+					maxCharging = 0.0;
+				}
+
+				if (maxCharging > 0)
+				{
+					z = true;
+				}
+				// charging load ist in c und d schon mit eingerechnet
+				double hourly_laod = load_trace[index_t_load] + maxCharging;
+				c = fmax(solar_trace[index_t_solar] * pv - hourly_laod, 0);
+				d = fmax(hourly_laod - solar_trace[index_t_solar] * pv, 0);
+				max_c = fmin(calc_max_charging(c, b), alpha_c);
+				max_d = fmin(calc_max_discharging(d, b), alpha_d);
+
+				operationResult = maximise_solar_charging_safe(b, ev_b, c, d, max_c, max_d, is_home, dont_discharge, z, maxCharging);
+			}
+
+			else if (Operation_policy == "hybrid_bidirectional")
+			{
+				int chargingHour = lastp(allDailyStatuses[ev_day], ev_b, hour);
+				double maxCharging = 0.0;
+				if (chargingHour == hour)
+				{
+					z = true;
+					maxCharging = get_maxCharging(ev_b);
+				}
+				else
+				{
+					z = false;
+				}
+				double hourly_laod = load_trace[index_t_load] + maxCharging;
+				c = fmax(solar_trace[index_t_solar] * pv - hourly_laod, 0);
+				d = fmax(hourly_laod - solar_trace[index_t_solar] * pv, 0);
+				max_c = fmin(calc_max_charging(c, b), alpha_c);
+				max_d = fmin(calc_max_discharging(d, b), alpha_d);
+
+				operationResult = maximise_solar_charging(b, ev_b, c, d, z, max_c, max_d, maxCharging, is_home);
+			}
+			else{
 			std::cout << "ERROR: Invalid operation policy selected" << std::endl;
 		}
 		//cout << "ev_b before update: " << ev_b << "b before update" << b << endl;
@@ -499,7 +523,7 @@ double sim(vector<double> &load_trace, vector<double> &solar_trace, int start_in
 		//cout << "ev_b after update: " << ev_b << "b after update" << b << endl;
 		//cout << "load_deficit: " << load_deficit << "load_sum" << load_sum << endl;
 		// Update current SOC in EVStatus and carry over to next hour
-		allDailyStatuses[day][hour].currentSOC = ev_b;
+		allDailyStatuses[ev_day][hour].currentSOC = ev_b;
 		last_soc = ev_b;
 		if(ev_b_before < ev_b){
 			charged_last_hour = true;
@@ -511,14 +535,14 @@ double sim(vector<double> &load_trace, vector<double> &solar_trace, int start_in
 		//cout << "hour: " << hour << "day" << day << endl;
 		//cout << "ev status: " << allDailyStatuses[EV_index][hour].isAtHome << endl;
 		//cout << "next departure" << convertTimeToHour(allDailyStatuses[EV_index][hour].nextDepartureTime) << endl;
-		if (convertTimeToHour(allDailyStatuses[EV_index][hour].nextDepartureTime) == hour + 1)
+		if (convertTimeToHour(allDailyStatuses[ev_day][hour].nextDepartureTime) == hour + 1)
 		{
 			//cout << "about to push soc value: " << last_soc << endl;
 			socValues.push_back(last_soc);
 			//cout << "push was successful " << endl;
 				}
-		EV_index = EV_index + 1;
-	}
+		}
+		}
 
 	if (metric == 0) {
 		// lolp

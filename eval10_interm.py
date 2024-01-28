@@ -7,7 +7,9 @@ def extract_load_number(filename):
     return int(match.group(1)) if match else None
 
 # Define the load files
-load_files = ["load_114.txt","load_171.txt", "load_1792.txt","load_370.txt","load_744.txt", "load_890.txt", "load_1103.txt", "load_1169.txt", "load_1192.txt", "load_2337.txt"]
+load_files2 = ["load_114.txt","load_171.txt", "load_1792.txt","load_370.txt","load_744.txt", "load_890.txt", "load_1103.txt", "load_1169.txt", "load_1192.txt", "load_2337.txt"]
+load_files = ["load_114.txt","load_171.txt", "load_252.txt","load_370.txt","load_545.txt","load_744.txt", "load_890.txt", "load_1103.txt", "load_1169.txt", "load_1192.txt", "load_1792.txt", "load_2018.txt", "load_2072.txt", "load_2199.txt", "load_2337.txt", "load_2638.txt","load_2814.txt","load_2980.txt", "load_2986.txt", "load_3134.txt"]
+print(len(load_files))
 base_path = "pecan/"
 load_files = [base_path + file for file in load_files]
 pv_files = [file.replace('load', 'PV') for file in load_files]
@@ -23,7 +25,7 @@ ev_data_files = {
 }
 
 # Define the command template
-command_template = "./bin/sim 1250 460 10 20 1 0.5 0.95 100 {load_file} {pv_file} 0.8 0.2 40.0 7.4 {op} ev_data/{file_name}"
+command_template = "./bin/sim 1250 460 30 60 1 0.2 0.85 100 {load_file} {pv_file} 0.8 0.2 40.0 7.4 {op} ev_data/{file_name}"
 
 # Initialize a DataFrame to store results
 results_df = pd.DataFrame(columns=["Number", "Operation Policy", "WFH Type", "Battery", "PV", "Cost"])
@@ -56,4 +58,4 @@ for load_file, pv_file in zip(load_files, pv_files):
             }, ignore_index=True)
 
 # Save the results to a CSV file
-results_df.to_csv("evaluation_results_10_interm.csv", index=False)
+results_df.to_csv("evaluation_results_20_interm_0.2_second.csv", index=False)

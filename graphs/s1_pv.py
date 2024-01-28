@@ -3,17 +3,17 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Load the data from the CSV file
-file_path = 'averaged_evaluation_results_10_0.5_new.csv'  # Replace with your CSV file path
+file_path = 'average_results_20_0.5.csv' # Replace with your CSV file path
 data = pd.read_csv(file_path)
 
 # Map operation policy labels using policy_labels dictionary
 policy_labels = {
-    "safe_bidirectional": "Safe Bid.",
-    "safe_unidirectional": "Safe Unid.",
-    "hybrid_bidirectional": "Hybrid Bid.",
-    "hybrid_unidirectional": "Hybrid Unid.",
-    "optimal_bidirectional": "Optimal Bid.",
-    "optimal_unidirectional": "Optimal Unid."
+    "safe_bidirectional": "N-B",
+    "safe_unidirectional": "N-U",
+    "hybrid_bidirectional": "SG-B",
+    "hybrid_unidirectional": "SG-U",
+    "optimal_bidirectional": "SO-B",
+    "optimal_unidirectional": "SO-U"
 }
 
 data['Operation Policy'] = data['Operation Policy'].map(policy_labels)
@@ -43,4 +43,5 @@ for p in bar_plot.patches:
 
 # Display the plot
 plt.tight_layout()
+plt.ylim(0, 6)
 plt.show()

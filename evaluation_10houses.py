@@ -5,8 +5,8 @@ import pandas as pd
 # Define the load and PV file names
 # mayvve delete 5439
 #load_files3 = ["load_114.txt","load_171.txt", "load_252.txt","load_370.txt","load_545.txt","load_744.txt", "load_890.txt", "load_1103.txt", "load_1169.txt", "load_1192.txt", "load_1792.txt", "load_2018.txt", "load_2072.txt", "load_2199.txt", "load_2337.txt", "load_2638.txt","load_2814.txt","load_2980.txt", "load_2986.txt", "load_3134.txt","load_3367.txt", "load_3482.txt", "load_3527.txt","load_4357.txt","load_4526.txt","load_5129.txt","load_5439.txt","load_5545.txt","load_5615.txt","load_5738.txt","load_5796.txt","load_5874.txt","load_5892.txt","load_6121.txt","load_6266.txt", "load_6423.txt","load_6578.txt", "load_7429.txt", "load_7741.txt","load_7788.txt","load_7850.txt","load_7940.txt","load_7989.txt","load_7989.txt","load_8084.txt","load_8197.txt","load_8236.txt","load_8317.txt", "load_8419.txt", "load_8626.txt","load_9121.txt","load_9647.txt",]
-load_files = ["load_114.txt","load_171.txt", "load_1792.txt","load_370.txt","load_744.txt", "load_890.txt", "load_1103.txt", "load_1169.txt", "load_1192.txt"]
-#load_files = ["load_8626.txt"]
+load_files2 = ["load_114.txt","load_171.txt", "load_1792.txt","load_370.txt","load_744.txt", "load_890.txt", "load_1103.txt", "load_1169.txt", "load_1192.txt"]
+load_files = ["load_545.txt"]
 
 
 # Base path for the files

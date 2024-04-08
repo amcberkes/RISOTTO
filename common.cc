@@ -5,6 +5,8 @@
 #include <vector>
 #include <iostream>
 #include <climits>
+#include <string>
+#include <set>
 
 #include "common.h"
 
@@ -18,6 +20,17 @@ double pv_min;
 double pv_max;
 double pv_step; // search in steps of x kW
 
+double max_soc;
+double min_soc;
+
+double ev_battery_capacity = 40.0;
+int t_ch = 3;
+double charging_rate = 7.4;
+// common.cc
+std::string EV_charging;               
+std::string Operation_policy; 
+std:: string path_to_ev_data ;
+
 double epsilon;
 double confidence;
 int metric;
@@ -25,6 +38,8 @@ int days_in_chunk;
 
 vector<double> load;
 vector<double> solar;
+
+vector<double> socValues;
 
 vector<double> read_data_from_file(istream &datafile, int limit = INT_MAX) {
 
@@ -203,7 +218,55 @@ int process_input(char** argv, bool process_metric_input) {
 		return 1;
 	}
 
+    string max_soc_string = argv[++i];
+    max_soc = stod(max_soc_string);
+
+#ifdef DEBUG
+    cout << "max_soc_string = " << max_soc_string << ", max_soc = " << max_soc << endl;
+#endif
+
+    string min_soc_string = argv[++i];
+    min_soc = stod(min_soc_string);
+
+#ifdef DEBUG
+    cout << "min_soc_string = " << min_soc_string << ", min_soc = " << min_soc << endl;
+#endif
+    string ev_battery_capacity_string = argv[++i];
+    ev_battery_capacity = stod(ev_battery_capacity_string);
+
+#ifdef DEBUG
+    cout << "ev_battery_capacity_string = " << ev_battery_capacity_string << ", ev_battery_capacity = " << ev_battery_capacity << endl;
+#endif
+  
+    string charging_rate_string = argv[++i];
+    charging_rate = stod(charging_rate_string);
+
+#ifdef DEBUG
+    cout << "charging_rate_string = " << charging_rate_string << ", charging_rate = " << charging_rate << endl;
+#endif
+
+    std::set<std::string> validOperationPolicyOptions = {"optimal_unidirectional", "safe_unidirectional", "hybrid_unidirectional", "optimal_bidirectional", "hybrid_bidirectional", "safe_bidirectional", "hybrid_bidirectional"};
+
+       
+    std::string operationPolicyInput = argv[++i]; 
+
     
 
-    return 0;
+    if (validOperationPolicyOptions.find(operationPolicyInput) == validOperationPolicyOptions.end())
+    {
+        std::cerr << "Invalid Operation policy: " << operationPolicyInput << std::endl;
+        exit(EXIT_FAILURE); 
     }
+
+    Operation_policy = operationPolicyInput;
+
+    string path_to_ev_data_string = argv[++i];
+    path_to_ev_data = path_to_ev_data_string;
+   
+
+#ifdef DEBUG
+    cout << " path_to_ev_data = " << path_to_ev_data << endl;
+#endif
+
+    return 0;
+}

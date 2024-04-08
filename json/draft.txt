@@ -1,0 +1,35 @@
+{
+    "PV_cost": 500,
+    "B_cost": 2000,
+    "pv_max": 10,
+    "cells_max": 225,
+    "metric": 1, (has to be 0 for LOLP and 1 for EUE)
+    "epsilon": 0.1, (between 0.1 and 0.9, the ratio of energy covered through grid)
+    "confidence": 0.95, (do we ask that in the tool?)
+    "days_in_chunk": 100,(fixed)
+    "loadfile": "path/to/load_file.txt", (do we take monthly averages here?)
+    "solarfile": "path/to/solar_file.txt", (do we take monthly averages here?)
+    "max_soc": 0.8,
+    "min_soc": 0.2,
+    "ev_battery_capacity": 40.0,
+    "charging_rate": 7.4,
+    "EV_charging": "naive", (I need to think about this, probably we will just run all options and show the different results)
+    "Operation_policy": "unidirectional", (I need to think about this, probably we will just run all options and show the different results)
+    "path_to_ev_data": "path/to/ev_data_file.txt", (this will be created with the data below)
+    "ev_generator": {
+        "output": "ev_data_file.txt", (fixed)
+        "days": 365,(fixed)
+        "ev_battery": 40,(already asked above)
+        "consumption": 164,
+        "wfh_monday": 0,
+        "wfh_tuesday": 0,
+        "wfh_wednesday": 0,
+        "wfh_thursday": 0,
+        "wfh_friday": 0,
+        "C_dist": 13.4,
+        "C_dept": 8.00,
+        "C_arr": 18.00,
+        "N_nc": 2,
+        "merge_trips": true (fixed)
+    }
+}

@@ -100,11 +100,7 @@ std::vector<EVRecord> readEVData(const std::string &filename)
     return records;
 }
 
-void updateEVStatus(EVStatus &status, const std::string &currentTime)
-{
-    // Update status based on currentTime and EV records
-    // ...
-}
+
 
 void printEVRecords(const std::vector<EVRecord> &evRecords)
 {
@@ -127,7 +123,7 @@ int convertTimeToHour(const std::string &timeStr)
 {
     if (timeStr == "No trips")
     {
-        return -1; // Indicate no trip with a special value, e.g., -1
+        return -1; // Indicate no trip with -1
     }
 
     try
@@ -145,8 +141,8 @@ int convertTimeToHour(const std::string &timeStr)
     }
     catch (const std::exception &e)
     {
-        std::cerr << "Error converting time to hour: " << e.what() << std::endl;
-        return -1; // Return a default value or handle the error as appropriate
+      //  std::cerr << "Error converting time to hour: " << e.what() << std::endl;
+        return -1; 
     }
 }
 
@@ -257,18 +253,6 @@ std::vector<EVStatus> generateDailyStatus(const std::vector<EVRecord> &dayRecord
     return hourlyStatuses; // Return the vector of EVStatus objects
 }
 
-int findNumberOfDays(const std::vector<EVRecord> &evRecords)
-{
-    int maxDay = 0;
-    for (const auto &record : evRecords)
-    {
-        if (record.day > maxDay)
-        {
-            maxDay = record.day;
-        }
-    }
-    return maxDay;
-}
 
 std::vector<std::vector<EVStatus>> generateAllDailyStatuses(const std::vector<EVRecord> &allRecords)
 {
@@ -325,4 +309,38 @@ void printAllEVStatuses(const std::vector<std::vector<EVStatus>> &allDailyStatus
             std::cout << ", Current SOC: " << std::fixed << std::setprecision(2) << status.currentSOC << std::endl;
         }
     }
+}
+void printAllEVStatusesToCSV(const std::vector<std::vector<EVStatus>> &allDailyStatuses, const std::vector<EVRecord> &evRecords, const std::string &filename)
+{
+    std::ofstream outFile(filename); // Open the file for writing
+
+    // Check if file is successfully opened
+    if (!outFile.is_open())
+    {
+        std::cerr << "Error opening file: " << filename << std::endl;
+        return;
+    }
+
+    // Write CSV headers
+    outFile << "Day,Day Name,Hour,Status,Next Departure Time,Current SOC\n";
+
+    for (const auto &dailyStatuses : allDailyStatuses)
+    {
+        if (!dailyStatuses.empty())
+        {
+            std::string dayNumber = std::to_string(dailyStatuses[0].dayNumber);
+            std::string dayName = dailyStatuses[0].dayName;
+
+            for (const auto &status : dailyStatuses)
+            {
+                outFile << dayNumber << "," << dayName << ",";
+                outFile << std::setw(2) << status.hour << ",";
+                outFile << (status.isAtHome ? "At Home" : "Away") << ",";
+                outFile << status.nextDepartureTime << ",";
+                outFile << std::fixed << std::setprecision(2) << status.currentSOC << "\n";
+            }
+        }
+    }
+
+    outFile.close(); // Close the file
 }

@@ -100,11 +100,7 @@ std::vector<EVRecord> readEVData(const std::string &filename)
     return records;
 }
 
-void updateEVStatus(EVStatus &status, const std::string &currentTime)
-{
-    // Update status based on currentTime and EV records
-    // ...
-}
+
 
 void printEVRecords(const std::vector<EVRecord> &evRecords)
 {
@@ -127,7 +123,7 @@ int convertTimeToHour(const std::string &timeStr)
 {
     if (timeStr == "No trips")
     {
-        return -1; // Indicate no trip with a special value, e.g., -1
+        return -1; // Indicate no trip with -1
     }
 
     try
@@ -146,7 +142,7 @@ int convertTimeToHour(const std::string &timeStr)
     catch (const std::exception &e)
     {
       //  std::cerr << "Error converting time to hour: " << e.what() << std::endl;
-        return -1; // Return a default value or handle the error as appropriate
+        return -1; 
     }
 }
 
@@ -257,18 +253,6 @@ std::vector<EVStatus> generateDailyStatus(const std::vector<EVRecord> &dayRecord
     return hourlyStatuses; // Return the vector of EVStatus objects
 }
 
-int findNumberOfDays(const std::vector<EVRecord> &evRecords)
-{
-    int maxDay = 0;
-    for (const auto &record : evRecords)
-    {
-        if (record.day > maxDay)
-        {
-            maxDay = record.day;
-        }
-    }
-    return maxDay;
-}
 
 std::vector<std::vector<EVStatus>> generateAllDailyStatuses(const std::vector<EVRecord> &allRecords)
 {

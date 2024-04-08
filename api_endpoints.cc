@@ -13,7 +13,6 @@ void handlePostData(const Rest::Request &request, Http::ResponseWriter response)
         // Parse the request body into a json object
         auto j = json::parse(request.body());
 
-        // Example of accessing various fields
         std::string latitude = j["latitude"];
         std::string longitude = j["longitude"];
         double max_soc = j["max_soc"];
@@ -43,11 +42,9 @@ void handlePostData(const Rest::Request &request, Http::ResponseWriter response)
         // Accessing nested JSON object within an object
         auto ev_generator = j["ev_generator"];
         int days = ev_generator["days"];
-        // Continue for other fields in ev_generator...
 
         // Log to console (for demonstration)
         std::cout << "Latitude: " << latitude << ", Longitude: " << longitude << std::endl;
-        // Print more fields as needed...
 
         // Send a response back
         response.send(Http::Code::Ok, "Data received and processed");

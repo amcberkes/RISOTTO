@@ -27,8 +27,8 @@ double ev_battery_capacity = 40.0;
 int t_ch = 3;
 double charging_rate = 7.4;
 // common.cc
-std::string EV_charging = "naive";               // Default policy
-std::string Operation_policy = "unidirectional"; // Default policy
+std::string EV_charging;               
+std::string Operation_policy; 
 std:: string path_to_ev_data ;
 
 double epsilon;

@@ -14,20 +14,12 @@
 
 using namespace std;
 
-// run_simulations
-// load_filename: filename, each line in file contains electricity consumption value
-// solar_filename: filename, each line in file contains solar generation value
-// id: request id
-// metric: 0 for LOLP, 1 for unmet load
-// epsilon: number in range [0,1] representing LOLP or unmet load fraction.
-// chunk_size: length of time (in days)
 SimulationResult run_simulations(vector<double> &load, vector<double> &solar, int metric, int chunk_size, int number_of_chunks, std::vector<EVRecord> evRecords, std::vector<std::vector<EVStatus>> allDailyStatuses, double max_soc, double min_soc) {
 
 	// set random seed to a specific value if you want consistency in results
 	srand(10);
 
 	// get number of timeslots in each chunk
-	//zb 100 days a 24h if we have hourly data in the input files 
 	int t_chunk_size = chunk_size*(24/T_u);
 
 	vector <vector<SimulationResult> > results;
@@ -45,7 +37,6 @@ SimulationResult run_simulations(vector<double> &load, vector<double> &solar, in
 
 		// Calculate chunk_start
 		int chunk_start = chunk_index * 24;
-		//TODO: modify this if we know the first day of the chunk is for e.g. a monday, then ev_Start should also be a monday
 		int Ev_start = rand() % evRecords.size();
 		int chunk_end = chunk_start + t_chunk_size;
 
@@ -98,22 +89,15 @@ int main(int argc, char ** argv)
 	
 		// Initialize EVStatus
 		EVStatus evStatus;
-	//printEVRecords(evRecords);
 
 	// Generate all daily statuses
 	std::vector<std::vector<EVStatus>> allDailyStatuses = generateAllDailyStatuses(evRecords);
-	//printAllEVStatuses(allDailyStatuses, evRecords);
-	//printAllEVStatusesToCSV(allDailyStatuses, evRecords, "output.csv"); // Replace "output.csv" with your desired file name
 
-	//write a cout command that prints out the evcharging polocy and operation policy
-	//cout << "EV charging policy: " << EV_charging << endl;
-	//cout << "EV operation policy: " << Operation_policy << endl;
 	SimulationResult sr = run_simulations(load, solar, metric, days_in_chunk, number_of_chunks, evRecords, allDailyStatuses, max_soc, min_soc);
 
 	double cost = sr.B / kWh_in_one_cell * B_inv + sr.C * PV_inv;
 	cout  << sr.B << " " << sr.C  << " " << cost << endl;
 	
-		// Open an output file stream
 		std::ofstream outFile("soc_values.txt");
 		if (!outFile){
 			std::cerr << "Error: Unable to open file for writing." << std::endl;

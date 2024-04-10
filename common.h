@@ -34,7 +34,6 @@ extern double ev_battery_capacity;
 extern double charging_rate;
 extern std::string path_to_ev_data;
 
-// common.h
 extern std::string Operation_policy;
 
 

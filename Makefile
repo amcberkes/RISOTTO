@@ -1,7 +1,7 @@
 all: sim 
 
 sim: 
-	g++ -std=c++14 -O2 -I/opt/homebrew/Cellar/asio/1.28.1/include run_simulation.cc cheby.cc simulate_system.cc common.cc ev.cc -o bin/sim -lpthread
+	g++ -std=c++14 -O2 -I/opt/homebrew/Cellar/asio/1.28.1/include  -I/opt/homebrew/Cellar/nlohmann-json/3.11.3/include run_simulation.cc cheby.cc simulate_system.cc common.cc ev.cc -o bin/sim -lpthread -lcurl
 
 debug: debug_sim 
 

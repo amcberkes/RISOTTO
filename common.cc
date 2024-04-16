@@ -7,8 +7,17 @@
 #include <climits>
 #include <string>
 #include <set>
+#include <curl/curl.h>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <nlohmann/json.hpp>
 
 #include "common.h"
+
+using json = nlohmann::json;
 
 double B_inv; // cost per cell
 double PV_inv; // cost per unit (kW) of PV
@@ -37,7 +46,112 @@ int days_in_chunk;
 vector<double> load;
 vector<double> solar;
 
-vector<double> socValues;
+
+
+        vector<double>
+            socValues;
+
+// Callback function to receive data from libcurl
+size_t write_callback(void *contents, size_t size, size_t nmemb, void *userp) {
+    ((std::string*)userp)->append((char*)contents, size * nmemb);
+    return size * nmemb;
+}
+
+// Function to fetch solar data from API, accepting lat and lon as strings
+void fetch_solar_data_from_api(const std::string &lat, const std::string &lon, const std::string &outputFilePath, int us)
+{
+    CURL *curl;
+    CURLcode res;
+    std::string readBuffer;
+    std::vector<double> solar_data;
+    cout << "lon: " << lon << endl;
+    cout << "lat: " << lat << endl;
+
+    // Initialize CURL
+    curl = curl_easy_init();
+    std::string url;
+    if (curl)
+    {
+        // Prepare the URL for international
+        if(us == 0){
+            url = "https://developer.nrel.gov/api/pvwatts/v8.json?api_key=AQApgpuyM8tcFqhfwGyrXKJKQQofUlUt1bGfj9ke"
+                              "&azimuth=180&system_capacity=4&losses=14&array_type=1&module_type=0&tilt=10&dataset=intl&timeframe=hourly"
+                              "&lat=" +
+                              lat + "&lon=" + lon;
+        } if(us==1){
+            //us
+            url = "https://developer.nrel.gov/api/pvwatts/v8.json?api_key=AQApgpuyM8tcFqhfwGyrXKJKQQofUlUt1bGfj9ke"
+                              "&azimuth=180&system_capacity=4&losses=14&array_type=1&module_type=0&tilt=10&timeframe=hourly"
+                              "&lat=" +
+                              lat + "&lon=" + lon;
+        }
+        
+
+
+        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
+
+        res = curl_easy_perform(curl);
+        if (res != CURLE_OK)
+        {
+            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
+        }
+        else
+        {
+            curl_easy_cleanup(curl);
+
+            // Parse JSON and process
+            json j = json::parse(readBuffer);
+
+            // Open a file stream to write the JSON data
+            std::ofstream jsonFile("json_interm.txt");
+            if (jsonFile.is_open())
+            {
+                // Write prettified JSON to file with indent of 4 spaces
+                jsonFile << j.dump(4);
+                jsonFile.close();
+                std::cout << "JSON data written to: "
+                          << "json_interm.txt" << std::endl;
+            }
+            else
+            {
+                std::cerr << "Failed to open file for output: "
+                          << "json_interm.txt" << std::endl;
+            }
+
+            double system_capacity;
+            std::string system_capacity_str = j["inputs"]["system_capacity"].get<std::string>();
+            try
+            {
+                system_capacity = std::stod(system_capacity_str);
+            }
+            catch (const std::invalid_argument &ia)
+            {
+                std::cerr << "Invalid argument: " << ia.what() << std::endl;
+                return;
+            }
+            std::vector<double> ac_values = j["outputs"]["ac"].get<std::vector<double>>();
+    
+
+            std::ofstream outFile(outputFilePath);
+            if (outFile.is_open())
+            {
+                for (double ac : ac_values)
+                {
+                    double converted_value = (ac / system_capacity) / 1000; // Converting to kW
+                    outFile << converted_value << std::endl;
+                }
+                outFile.close();
+                std::cout << "Processed AC data written to " << outputFilePath << std::endl;
+            }
+            else
+            {
+                std::cerr << "Unable to open file for writing: " << outputFilePath << std::endl;
+            }
+        }
+    }
+}
 
 vector<double> read_data_from_file(istream &datafile, int limit = INT_MAX) {
 
@@ -63,7 +177,20 @@ vector<double> read_data_from_file(istream &datafile, int limit = INT_MAX) {
 }
 
 int process_input(char** argv, bool process_metric_input) {
-    
+
+    double lat = 40.753;
+    double lon = -73.983;
+
+    // Using stringstream and setprecision to control the number of decimal places
+    std::ostringstream lat_ss;
+    std::ostringstream lon_ss;
+
+    lat_ss << std::fixed << std::setprecision(3) << lat;
+    lon_ss << std::fixed << std::setprecision(3) << lon;
+
+    std::string lat_str = lat_ss.str();
+    std::string lon_str = lon_ss.str();
+
     int i = 0;
     
     string inv_PV_string = argv[++i];
@@ -183,33 +310,39 @@ int process_input(char** argv, bool process_metric_input) {
 
     string solarfile = argv[++i];
 
-#ifdef DEBUG
-    cout << "solarfile = " << solarfile << endl;
-#endif
+    // if solarfile is "pvwatts", call pvwatts api 
+    if (solarfile == string("pvwatts")) {
+        string us_string = argv[++i];
+        int us = stod(us_string);
+       
 
-    if (solarfile == string("--")) {
+        string lat_string = argv[++i];
+        lat = stod(lat_string);
 
-#ifdef DEBUG
-        cout << "reading solar file" << endl;
-#endif
+        #ifdef DEBUG
+        cout << "lat_string = " << lat_string << " , lat= " << lat << endl;
+        #endif
+        string lon_string = argv[++i];
+        lon = stod(lon_string);
 
+        #ifdef DEBUG
+        cout << "lon_string = " << lon_string << ", lon = " << lon << endl;
+        #endif
+        fetch_solar_data_from_api(lat_string, lon_string, "json_pvwatts.txt", us);
+        solarfile = "json_pvwatts.txt";
+        ifstream solarstream(solarfile.c_str());
+        solar = read_data_from_file(solarstream);
+    } 
+
+    else if(solarfile == string("--")) {
         // read from cin
         int limit = stoi(argv[++i]);
-
-#ifdef DEBUG
-        cout << "reading solar data from stdin. limit = " << limit << endl;
-#endif
-
         solar = read_data_from_file(cin, limit);
     } else {
         // read in data into vector
         ifstream solarstream(solarfile.c_str());
         solar = read_data_from_file(solarstream);
     }
-
-#ifdef DEBUG
-	cout << "checking for errors in solar file..." << endl;
-#endif
 
 	if (solar[0] < 0) {
 		cerr << "error reading solar file " << solarfile << endl;
@@ -265,6 +398,8 @@ int process_input(char** argv, bool process_metric_input) {
 #ifdef DEBUG
     cout << " path_to_ev_data = " << path_to_ev_data << endl;
 #endif
+
+
 
     return 0;
 }

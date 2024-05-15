@@ -1,0 +1,86 @@
+{
+    "message": {
+        "input": {
+            "population": [
+                {
+                    "name": "User_load",
+                    "count": 1,
+                    "attributes": {
+                        "energy_rating": "A/B/C",
+                        "number_habitable_rooms": "3+",
+                        "urbanity": "Urban",
+                        "property_type_1": "House",
+                        "property_type_2": "Terraced",
+                        "is_mains_gas": "Has Mains Gas",
+                        "lct": [
+                            "Has No LCTs"
+                        ]
+                    }
+                }
+            ],
+            "day_of_week": "Monday",
+            "month_of_year": "February"
+        },
+        "results": [
+            {
+                "name": "User_load",
+                "day_of_week": "Monday",
+                "month_of_year": "February",
+                "query_str": "month_of_year == 12 and day_of_week == 5 and (has_heat_pump == 1 and has_home_battery == 1 and has_solar_pv == 1 and has_electric_hot_water == 1 and has_electric_radiator == 1 and num_vehicles_charged_at_home not in [1, 3]) and has_solar_pv == 1 and num_vehicles_charged_at_home not in [3, 1] and has_heat_pump == 1 and energy_rating in [1] and number_habitable_rooms in [1] and urbanity in [1] and property_type_1 in [1] and property_type_2 in [4] and is_mains_gas == 1",
+                "count": 1,
+                "kwh": [
+                    [
+                        "0.1701",
+                        "0.3011",
+                        "0.4504",
+                        "0.5051",
+                        "0.5485",
+                        "0.8913",
+                        "1.1805",
+                        "1.5135",
+                        "1.5204",
+                        "1.5331",
+                        "1.7903",
+                        "2.1069",
+                        "3.2572",
+                        "4.4062",
+                        "1.0916",
+                        "0.2509",
+                        "0.1349",
+                        "0.2671",
+                        "0.3753",
+                        "0.4208",
+                        "0.4359",
+                        "0.4685",
+                        "0.5055",
+                        "0.5013",
+                        "0.4959",
+                        "0.4536",
+                        "0.4636",
+                        "0.8922",
+                        "1.6105",
+                        "1.2249",
+                        "0.4148",
+                        "0.2215",
+                        "0.1935",
+                        "0.1989",
+                        "0.2092",
+                        "0.2597",
+                        "0.2292",
+                        "0.125",
+                        "0.913",
+                        "2.8962",
+                        "3.0346",
+                        "2.5946",
+                        "2.7276",
+                        "2.1184",
+                        "0.7932",
+                        "0.1472",
+                        "0.1619",
+                        "0.2512"
+                    ]
+                ]
+            }
+        ]
+    }
+}

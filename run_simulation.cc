@@ -98,19 +98,19 @@ int main(int argc, char ** argv)
 	double cost = sr.B / kWh_in_one_cell * B_inv + sr.C * PV_inv;
 	cout  << sr.B << " " << sr.C  << " " << cost << endl;
 	
-		std::ofstream outFile("soc_values.txt");
-		if (!outFile){
-			std::cerr << "Error: Unable to open file for writing." << std::endl;
-			return 1;
-		}
+		//std::ofstream outFile("soc_values.txt");
+		//if (!outFile){
+		//	std::cerr << "Error: Unable to open file for writing." << std::endl;
+		//	return 1;
+		//}
 
 		// Write SOC values to the file
-		for (const auto &value : socValues){
-			outFile << value << std::endl;
-		}
+		//for (const auto &value : socValues){
+		//	outFile << value << std::endl;
+		//}
 
 		// Close the file stream
-		outFile.close();
+		//outFile.close();
 		
 
 	return 0;

@@ -1,0 +1,369 @@
+Day,Weekday,Departure Time,SOC on Departure,Arrival Time,SOC on Arrival,Distance (km),Travel Time (min),Distance (km),Travel Time (min)
+1,Monday,No trips,32.0,,32.0,,
+2,Tuesday,08:14,48.0,18:00,44.2,23.10,612
+3,Wednesday,No trips,32.0,,32.0,,
+4,Thursday,07:45,48.00,18:01,45.00,18.29,600
+5,Friday,No trips,32.0,,32.0,,
+6,Saturday,No trips,32.0,,32.0,,
+7,Sunday,No trips,32.0,,32.0,,
+8,Monday,No trips,32.0,,32.0,,
+9,Tuesday,07:52,48.0,18:01,43.6,26.79,621
+10,Wednesday,No trips,32.0,,32.0,,
+11,Thursday,08:12,48.00,17:52,45.05,17.98,600
+12,Friday,No trips,32.0,,32.0,,
+13,Saturday,16:37,48.00,17:18,47.44,3.42,8
+14,Sunday,No trips,32.0,,32.0,,
+15,Monday,No trips,32.0,,32.0,,
+16,Tuesday,08:01,48.00,17:54,45.11,17.61,600
+17,Wednesday,No trips,32.0,,32.0,,
+18,Thursday,07:47,48.00,18:14,44.51,21.28,600
+19,Friday,No trips,32.0,,32.0,,
+20,Saturday,No trips,32.0,,32.0,,
+21,Sunday,No trips,32.0,,32.0,,
+22,Monday,No trips,32.0,,32.0,,
+23,Tuesday,08:07,48.00,17:55,44.88,19.05,600
+24,Wednesday,No trips,32.0,,32.0,,
+25,Thursday,07:45,48.00,18:11,44.95,18.58,600
+26,Friday,No trips,32.0,,32.0,,
+27,Saturday,No trips,32.0,,32.0,,
+28,Sunday,No trips,32.0,,32.0,,
+29,Monday,No trips,32.0,,32.0,,
+30,Tuesday,07:54,48.00,18:09,44.96,18.54,600
+31,Wednesday,No trips,32.0,,32.0,,
+32,Thursday,08:13,48.00,17:50,44.52,21.21,600
+33,Friday,No trips,32.0,,32.0,,
+34,Saturday,No trips,32.0,,32.0,,
+35,Sunday,No trips,32.0,,32.0,,
+36,Monday,No trips,32.0,,32.0,,
+37,Tuesday,08:03,48.00,18:02,44.50,21.34,600
+38,Wednesday,No trips,32.0,,32.0,,
+39,Thursday,07:56,48.00,17:59,44.85,19.22,600
+40,Friday,No trips,32.0,,32.0,,
+41,Saturday,No trips,32.0,,32.0,,
+42,Sunday,No trips,32.0,,32.0,,
+43,Monday,No trips,32.0,,32.0,,
+44,Tuesday,08:04,48.00,17:55,44.95,18.60,600
+45,Wednesday,18:23,48.00,19:53,46.77,7.50,18
+46,Thursday,08:05,48.00,17:51,45.04,18.05,600
+47,Friday,No trips,32.0,,32.0,,
+48,Saturday,No trips,32.0,,32.0,,
+49,Sunday,14:29,48.00,16:23,46.43,9.56,23
+50,Monday,11:49,48.00,13:07,46.93,6.54,16
+51,Tuesday,08:05,48.00,18:04,45.05,17.96,600
+52,Wednesday,No trips,32.0,,32.0,,
+53,Thursday,08:09,48.00,18:03,44.84,19.28,600
+54,Friday,No trips,32.0,,32.0,,
+55,Saturday,No trips,32.0,,32.0,,
+56,Sunday,No trips,32.0,,32.0,,
+57,Monday,No trips,32.0,,32.0,,
+58,Tuesday,07:48,48.00,17:58,44.89,18.94,600
+59,Wednesday,No trips,32.0,,32.0,,
+60,Thursday,08:04,48.00,17:57,45.11,17.64,600
+61,Friday,09:22,48.00,11:09,46.54,8.88,21
+62,Saturday,11:48,48.00,13:34,46.55,8.83,21
+63,Sunday,No trips,32.0,,32.0,,
+64,Monday,No trips,32.0,,32.0,,
+65,Tuesday,07:59,48.00,17:56,44.66,20.37,600
+66,Wednesday,08:06,48.00,09:55,46.51,9.09,22
+67,Thursday,07:55,48.0,17:55,43.5,27.70,616
+68,Friday,No trips,32.0,,32.0,,
+69,Saturday,No trips,32.0,,32.0,,
+70,Sunday,No trips,32.0,,32.0,,
+71,Monday,No trips,32.0,,32.0,,
+72,Tuesday,07:59,48.00,17:52,44.49,21.41,600
+73,Wednesday,No trips,32.0,,32.0,,
+74,Thursday,07:54,48.0,18:01,44.1,23.85,612
+75,Friday,11:23,48.00,13:05,46.61,8.48,20
+76,Saturday,13:42,48.00,15:21,46.64,8.32,20
+77,Sunday,No trips,32.0,,32.0,,
+78,Monday,No trips,32.0,,32.0,,
+79,Tuesday,07:45,48.00,17:49,44.93,18.71,600
+80,Wednesday,No trips,32.0,,32.0,,
+81,Thursday,08:06,48.00,18:03,44.51,21.30,600
+82,Friday,No trips,32.0,,32.0,,
+83,Saturday,18:56,48.0,20:12,45.9,13.10,31
+84,Sunday,No trips,32.0,,32.0,,
+85,Monday,08:15,48.00,09:44,46.80,7.35,18
+86,Tuesday,07:56,48.0,17:49,43.6,26.64,619
+87,Wednesday,17:28,48.00,19:07,46.65,8.26,20
+88,Thursday,08:07,48.00,18:00,45.09,17.72,600
+89,Friday,10:44,48.00,11:49,47.11,5.43,13
+90,Saturday,No trips,32.0,,32.0,,
+91,Sunday,08:27,48.00,09:51,46.85,6.98,17
+92,Monday,No trips,32.0,,32.0,,
+93,Tuesday,07:52,48.00,17:52,44.67,20.33,600
+94,Wednesday,No trips,32.0,,32.0,,
+95,Thursday,08:10,48.0,18:14,43.5,27.55,617
+96,Friday,No trips,32.0,,32.0,,
+97,Saturday,No trips,32.0,,32.0,,
+98,Sunday,08:44,48.00,09:38,47.26,4.53,11
+99,Monday,No trips,32.0,,32.0,,
+100,Tuesday,08:12,48.00,17:46,44.85,19.19,600
+101,Wednesday,No trips,32.0,,32.0,,
+102,Thursday,08:10,48.00,18:13,44.84,19.29,600
+103,Friday,No trips,32.0,,32.0,,
+104,Saturday,No trips,32.0,,32.0,,
+105,Sunday,No trips,32.0,,32.0,,
+106,Monday,No trips,32.0,,32.0,,
+107,Tuesday,08:02,48.00,18:13,44.65,20.42,600
+108,Wednesday,No trips,32.0,,32.0,,
+109,Thursday,08:04,48.00,17:52,44.50,21.35,600
+110,Friday,No trips,32.0,,32.0,,
+111,Saturday,No trips,32.0,,32.0,,
+112,Sunday,19:39,48.00,20:48,47.05,5.78,14
+113,Monday,No trips,32.0,,32.0,,
+114,Tuesday,07:54,48.00,17:47,45.03,18.11,600
+115,Wednesday,No trips,32.0,,32.0,,
+116,Thursday,08:11,48.00,18:13,44.91,18.84,600
+117,Friday,No trips,32.0,,32.0,,
+118,Saturday,17:19,48.00,18:43,46.85,7.00,17
+119,Sunday,13:29,48.00,14:05,47.50,3.03,7
+120,Monday,09:07,48.00,10:19,47.01,6.02,14
+121,Tuesday,08:01,48.00,17:46,44.61,20.68,600
+122,Wednesday,No trips,32.0,,32.0,,
+123,Thursday,08:03,48.00,18:05,44.54,21.10,600
+124,Friday,19:50,48.00,20:53,47.14,5.22,13
+125,Saturday,No trips,32.0,,32.0,,
+126,Sunday,No trips,32.0,,32.0,,
+127,Monday,No trips,32.0,,32.0,,
+128,Tuesday,07:56,48.00,18:13,44.77,19.71,600
+129,Wednesday,No trips,32.0,,32.0,,
+130,Thursday,08:10,48.00,17:53,44.87,19.09,600
+131,Friday,No trips,32.0,,32.0,,
+132,Saturday,19:40,48.00,21:05,46.83,7.12,17
+133,Sunday,No trips,32.0,,32.0,,
+134,Monday,No trips,32.0,,32.0,,
+135,Tuesday,08:01,48.00,17:49,44.51,21.28,600
+136,Wednesday,No trips,32.0,,32.0,,
+137,Thursday,08:03,48.00,18:04,44.78,19.61,600
+138,Friday,No trips,32.0,,32.0,,
+139,Saturday,No trips,32.0,,32.0,,
+140,Sunday,No trips,32.0,,32.0,,
+141,Monday,No trips,32.0,,32.0,,
+142,Tuesday,07:58,48.00,17:56,45.03,18.10,600
+143,Wednesday,11:57,48.00,13:47,46.49,9.20,22
+144,Thursday,08:01,48.00,18:06,45.09,17.77,600
+145,Friday,No trips,32.0,,32.0,,
+146,Saturday,No trips,32.0,,32.0,,
+147,Sunday,No trips,32.0,,32.0,,
+148,Monday,No trips,32.0,,32.0,,
+149,Tuesday,07:51,48.00,17:56,44.78,19.64,600
+150,Wednesday,No trips,32.0,,32.0,,
+151,Thursday,08:11,48.00,18:02,44.77,19.70,600
+152,Friday,No trips,32.0,,32.0,,
+153,Saturday,No trips,32.0,,32.0,,
+154,Sunday,No trips,32.0,,32.0,,
+155,Monday,No trips,32.0,,32.0,,
+156,Tuesday,07:52,48.00,18:00,44.84,19.26,600
+157,Wednesday,No trips,32.0,,32.0,,
+158,Thursday,07:56,48.00,18:11,45.04,18.03,600
+159,Friday,No trips,32.0,,32.0,,
+160,Saturday,No trips,32.0,,32.0,,
+161,Sunday,No trips,32.0,,32.0,,
+162,Monday,No trips,32.0,,32.0,,
+163,Tuesday,08:11,48.00,17:52,44.62,20.63,600
+164,Wednesday,No trips,32.0,,32.0,,
+165,Thursday,07:58,48.00,18:02,44.91,18.86,600
+166,Friday,No trips,32.0,,32.0,,
+167,Saturday,18:43,48.00,20:11,46.79,7.38,18
+168,Sunday,No trips,32.0,,32.0,,
+169,Monday,No trips,32.0,,32.0,,
+170,Tuesday,07:45,48.00,17:45,44.99,18.34,600
+171,Wednesday,No trips,32.0,,32.0,,
+172,Thursday,07:55,48.00,18:03,44.66,20.36,600
+173,Friday,No trips,32.0,,32.0,,
+174,Saturday,No trips,32.0,,32.0,,
+175,Sunday,No trips,32.0,,32.0,,
+176,Monday,No trips,32.0,,32.0,,
+177,Tuesday,07:53,48.00,17:49,44.71,20.08,600
+178,Wednesday,No trips,32.0,,32.0,,
+179,Thursday,07:45,48.00,18:08,44.91,18.87,600
+180,Friday,No trips,32.0,,32.0,,
+181,Saturday,No trips,32.0,,32.0,,
+182,Sunday,No trips,32.0,,32.0,,
+183,Monday,No trips,32.0,,32.0,,
+184,Tuesday,08:06,48.00,17:51,44.89,18.95,600
+185,Wednesday,No trips,32.0,,32.0,,
+186,Thursday,07:58,48.00,18:07,44.76,19.78,600
+187,Friday,No trips,32.0,,32.0,,
+188,Saturday,No trips,32.0,,32.0,,
+189,Sunday,No trips,32.0,,32.0,,
+190,Monday,No trips,32.0,,32.0,,
+191,Tuesday,07:54,48.00,17:46,44.60,20.71,600
+192,Wednesday,13:15,48.00,13:48,47.54,2.79,7
+192,Wednesday,19:08,47.54,20:50,46.14,8.58,21
+193,Thursday,07:51,48.00,17:59,44.99,18.33,600
+194,Friday,No trips,32.0,,32.0,,
+195,Saturday,No trips,32.0,,32.0,,
+196,Sunday,No trips,32.0,,32.0,,
+197,Monday,No trips,32.0,,32.0,,
+198,Tuesday,08:05,48.00,18:00,45.01,18.22,600
+199,Wednesday,No trips,32.0,,32.0,,
+200,Thursday,08:11,48.00,17:48,44.57,20.90,600
+201,Friday,No trips,32.0,,32.0,,
+202,Saturday,No trips,32.0,,32.0,,
+203,Sunday,No trips,32.0,,32.0,,
+204,Monday,No trips,32.0,,32.0,,
+205,Tuesday,07:59,48.00,18:08,44.63,20.53,600
+206,Wednesday,12:00,48.00,13:59,46.38,9.86,24
+207,Thursday,07:58,48.00,17:54,44.76,19.77,600
+208,Friday,No trips,32.0,,32.0,,
+209,Saturday,19:31,48.00,20:15,47.41,3.62,9
+210,Sunday,16:48,48.00,17:54,47.10,5.50,13
+211,Monday,No trips,32.0,,32.0,,
+212,Tuesday,08:06,48.00,17:59,44.52,21.24,600
+213,Wednesday,No trips,32.0,,32.0,,
+214,Thursday,08:03,48.00,18:08,44.95,18.62,600
+215,Friday,No trips,32.0,,32.0,,
+216,Saturday,No trips,32.0,,32.0,,
+217,Sunday,19:55,48.0,20:58,46.0,12.38,29
+218,Monday,No trips,32.0,,32.0,,
+219,Tuesday,08:06,48.00,17:49,45.05,18.01,600
+220,Wednesday,No trips,32.0,,32.0,,
+221,Thursday,08:06,48.00,18:04,44.80,19.50,600
+221,Thursday,19:04,44.80,20:42,43.46,8.15,20
+222,Friday,No trips,32.0,,32.0,,
+223,Saturday,No trips,32.0,,32.0,,
+224,Sunday,No trips,32.0,,32.0,,
+225,Monday,No trips,32.0,,32.0,,
+226,Tuesday,07:53,48.00,17:49,44.53,21.13,600
+227,Wednesday,No trips,32.0,,32.0,,
+228,Thursday,07:59,48.00,18:03,44.67,20.29,600
+229,Friday,No trips,32.0,,32.0,,
+230,Saturday,No trips,32.0,,32.0,,
+231,Sunday,No trips,32.0,,32.0,,
+232,Monday,No trips,32.0,,32.0,,
+233,Tuesday,08:04,48.00,17:52,44.66,20.35,600
+234,Wednesday,No trips,32.0,,32.0,,
+235,Thursday,08:03,48.00,18:00,44.74,19.87,600
+236,Friday,No trips,32.0,,32.0,,
+237,Saturday,No trips,32.0,,32.0,,
+238,Sunday,09:46,48.00,10:29,47.42,3.54,8
+239,Monday,No trips,32.0,,32.0,,
+240,Tuesday,08:09,48.00,17:46,44.94,18.67,600
+240,Tuesday,19:25,44.94,20:10,44.33,3.72,9
+241,Wednesday,No trips,32.0,,32.0,,
+242,Thursday,08:00,48.00,17:48,44.88,19.05,600
+243,Friday,14:52,48.00,16:28,46.69,7.97,19
+244,Saturday,12:48,48.00,13:51,47.14,5.24,13
+245,Sunday,No trips,32.0,,32.0,,
+246,Monday,No trips,32.0,,32.0,,
+247,Tuesday,08:05,48.00,18:12,44.98,18.42,600
+248,Wednesday,12:07,48.00,12:52,47.39,3.73,9
+249,Thursday,07:50,48.00,18:06,44.56,20.97,600
+250,Friday,No trips,32.0,,32.0,,
+251,Saturday,No trips,32.0,,32.0,,
+252,Sunday,No trips,32.0,,32.0,,
+253,Monday,No trips,32.0,,32.0,,
+254,Tuesday,07:55,48.00,17:49,44.78,19.66,600
+255,Wednesday,No trips,32.0,,32.0,,
+256,Thursday,08:09,48.00,18:00,44.52,21.20,600
+257,Friday,13:13,48.00,15:02,46.52,9.04,22
+258,Saturday,14:34,48.00,16:21,46.54,8.88,21
+259,Sunday,No trips,32.0,,32.0,,
+260,Monday,No trips,32.0,,32.0,,
+261,Tuesday,07:47,48.00,17:47,44.61,20.67,600
+262,Wednesday,No trips,32.0,,32.0,,
+263,Thursday,07:47,48.0,18:12,44.4,22.27,606
+264,Friday,No trips,32.0,,32.0,,
+265,Saturday,No trips,32.0,,32.0,,
+266,Sunday,08:03,48.00,08:39,47.51,2.97,7
+267,Monday,No trips,32.0,,32.0,,
+268,Tuesday,08:07,48.00,17:58,44.74,19.86,600
+269,Wednesday,No trips,32.0,,32.0,,
+270,Thursday,08:00,48.0,18:10,43.2,29.29,625
+271,Friday,No trips,32.0,,32.0,,
+272,Saturday,No trips,32.0,,32.0,,
+273,Sunday,No trips,32.0,,32.0,,
+274,Monday,No trips,32.0,,32.0,,
+275,Tuesday,07:47,48.00,18:07,44.98,18.41,600
+276,Wednesday,No trips,32.0,,32.0,,
+277,Thursday,07:54,48.00,18:08,45.01,18.21,600
+278,Friday,No trips,32.0,,32.0,,
+279,Saturday,No trips,32.0,,32.0,,
+280,Sunday,10:48,48.00,12:25,46.67,8.09,19
+281,Monday,No trips,32.0,,32.0,,
+282,Tuesday,08:05,48.0,18:08,43.6,27.02,614
+283,Wednesday,No trips,32.0,,32.0,,
+284,Thursday,08:01,48.0,17:46,43.4,27.99,623
+285,Friday,No trips,32.0,,32.0,,
+286,Saturday,No trips,32.0,,32.0,,
+287,Sunday,No trips,32.0,,32.0,,
+288,Monday,No trips,32.0,,32.0,,
+289,Tuesday,08:04,48.00,17:58,45.07,17.86,600
+290,Wednesday,No trips,32.0,,32.0,,
+291,Thursday,08:12,48.00,17:51,44.78,19.63,600
+292,Friday,No trips,32.0,,32.0,,
+293,Saturday,No trips,32.0,,32.0,,
+294,Sunday,No trips,32.0,,32.0,,
+295,Monday,No trips,32.0,,32.0,,
+296,Tuesday,08:02,48.00,17:58,44.86,19.13,600
+297,Wednesday,No trips,32.0,,32.0,,
+298,Thursday,08:09,48.00,18:01,44.83,19.34,600
+299,Friday,16:54,48.00,17:39,47.39,3.74,9
+300,Saturday,No trips,32.0,,32.0,,
+301,Sunday,No trips,32.0,,32.0,,
+302,Monday,No trips,32.0,,32.0,,
+303,Tuesday,08:02,48.00,18:02,45.04,18.02,600
+304,Wednesday,No trips,32.0,,32.0,,
+305,Thursday,08:08,48.0,18:03,44.4,22.17,606
+306,Friday,No trips,32.0,,32.0,,
+307,Saturday,15:29,48.0,16:27,46.5,8.92,22
+308,Sunday,No trips,32.0,,32.0,,
+309,Monday,No trips,32.0,,32.0,,
+310,Tuesday,07:58,48.00,17:45,44.72,20.00,600
+311,Wednesday,No trips,32.0,,32.0,,
+312,Thursday,07:57,48.00,18:02,44.90,18.90,600
+313,Friday,10:40,48.00,12:31,46.47,9.31,22
+314,Saturday,No trips,32.0,,32.0,,
+315,Sunday,No trips,32.0,,32.0,,
+316,Monday,No trips,32.0,,32.0,,
+317,Tuesday,08:01,48.00,17:54,44.68,20.22,600
+318,Wednesday,16:19,48.00,17:02,47.41,3.60,9
+319,Thursday,08:01,48.00,18:07,44.85,19.19,600
+320,Friday,16:48,48.00,17:51,47.14,5.25,13
+321,Saturday,No trips,32.0,,32.0,,
+322,Sunday,No trips,32.0,,32.0,,
+323,Monday,No trips,32.0,,32.0,,
+324,Tuesday,08:09,48.0,18:02,43.6,26.68,614
+325,Wednesday,No trips,32.0,,32.0,,
+326,Thursday,07:57,48.00,17:52,45.04,18.02,600
+327,Friday,14:57,48.00,16:21,46.86,6.96,17
+328,Saturday,No trips,32.0,,32.0,,
+329,Sunday,No trips,32.0,,32.0,,
+330,Monday,No trips,32.0,,32.0,,
+331,Tuesday,08:01,48.00,18:02,44.86,19.14,600
+332,Wednesday,No trips,32.0,,32.0,,
+333,Thursday,07:52,48.0,17:57,43.5,27.25,622
+334,Friday,No trips,32.0,,32.0,,
+335,Saturday,No trips,32.0,,32.0,,
+336,Sunday,No trips,32.0,,32.0,,
+337,Monday,No trips,32.0,,32.0,,
+338,Tuesday,08:01,48.00,18:02,44.88,19.02,600
+339,Wednesday,No trips,32.0,,32.0,,
+340,Thursday,07:52,48.00,18:11,44.70,20.11,600
+341,Friday,No trips,32.0,,32.0,,
+342,Saturday,No trips,32.0,,32.0,,
+343,Sunday,No trips,32.0,,32.0,,
+344,Monday,No trips,32.0,,32.0,,
+345,Tuesday,08:14,48.00,18:05,44.71,20.07,600
+346,Wednesday,No trips,32.0,,32.0,,
+347,Thursday,07:48,48.00,17:59,44.67,20.31,600
+348,Friday,No trips,32.0,,32.0,,
+349,Saturday,No trips,32.0,,32.0,,
+350,Sunday,No trips,32.0,,32.0,,
+351,Monday,No trips,32.0,,32.0,,
+352,Tuesday,07:51,48.0,17:55,43.5,27.52,622
+353,Wednesday,No trips,32.0,,32.0,,
+354,Thursday,08:02,48.00,17:50,44.83,19.30,600
+355,Friday,12:48,48.00,13:27,47.47,3.21,8
+356,Saturday,No trips,32.0,,32.0,,
+357,Sunday,No trips,32.0,,32.0,,
+358,Monday,No trips,32.0,,32.0,,
+359,Tuesday,07:54,48.00,17:55,44.65,20.41,600
+360,Wednesday,No trips,32.0,,32.0,,
+361,Thursday,08:11,48.00,17:56,44.81,19.45,600
+362,Friday,No trips,32.0,,32.0,,
+363,Saturday,18:26,48.00,18:57,47.57,2.60,6
+364,Sunday,No trips,32.0,,32.0,,
+365,Monday,No trips,32.0,,32.0,,

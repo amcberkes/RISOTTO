@@ -38,14 +38,15 @@ with open("s_detached_capex_results.csv", "w") as output_file:
                     
                     # Construct command
                     command = f"./bin/sim 2100 480 15 25 1 0.7 0.85 100 {house_file_path} {solar_file_path} 0.8 0.2 60.0 7.4 {op} {base_path}/ev_UK/merged_{wfh_type}_UK.csv"
-                    print("Executing command: " + command)
+                    #print("Executing command: " + command)
                     
                     # Execute the command
                     result = subprocess.run(command.split(), stdout=subprocess.PIPE, text=True)
-                    print("Command output:", result.stdout)
+                    #print("Command output:", result.stdout)
 
                     if result.returncode != 0 or not result.stdout:
                         print("Command failed or produced no output.")
+                        print("Executing command: " + command)
                     else:
                         # Extract and parse output
                         match = re.search(r"(\d+\.\d+) (\d+\.\d+) (\d+)", result.stdout)
@@ -53,11 +54,12 @@ with open("s_detached_capex_results.csv", "w") as output_file:
                             b, c, cost = map(float, match.groups())
                             house_number = house_file.split('_')[2].split('.')[0]
                             output_file.write(f"{house_number},{wfh_type},{op},{solar_key},{b},{c},{cost}\n")
-                            print(f"Results for Semi-Detached {house_file} - Battery: {b}, PV: {c}, Cost: {cost}")
+                            #print(f"Results for Semi-Detached {house_file} - Battery: {b}, PV: {c}, Cost: {cost}")
                             
                             if b < 0.5 or c < 0.5:
                                 low_values.append(house_number)
                         else:
                             print("Failed to parse command output or incorrect output format.")
+                            print("Executing command: " + command)
 
     print("Simulation complete. Houses with PV or Battery < 0.5:", ", ".join(low_values))

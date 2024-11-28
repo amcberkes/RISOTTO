@@ -11,15 +11,7 @@ Simulation method for sizing:
 ./bin/sim pv_cost battery_cost pv_max cell_max metric epsilon conf n_days load pv
 ```
 
-Stochastic network calculus method for sizing with LOLP target:
-```
-./bin/snc_lolp pv_cost battery_cost pv_max cell_max epsilon conf n_days load pv
-```
 
-Stochastic network calculus method for sizing with EUE target:
-```
-./bin/snc_eue pv_cost battery_cost pv_max cell_max epsilon conf n_days load pv
-```
 
 Where:
 

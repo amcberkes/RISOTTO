@@ -52,14 +52,11 @@ make
 # Simulation Method LOLP
 ./bin/sim 2000 500 70 225 0 0.01 0.95 100 example_inputs/load.txt example_inputs/pv.txt
 
-# SNC Method LOLP
-./bin/snc_lolp 2000 500 70 225 0.01 0.95 100 example_inputs/load.txt example_inputs/pv.txt
 
 # Simulation Method EUE
 ./bin/sim 2000 500 70 225 1 0.05 0.95 100 example_inputs/load.txt example_inputs/pv.txt
 
-# SNC Method EUE
-./bin/snc_eue 2000 500 70 225 0.05 0.95 100 example_inputs/load.txt example_inputs/pv.txt
+
 ```
 
 We can also take electricity load and pv generation metrics through stdin. Instead of entering the file name in the command, enter `--` followed by number of lines to be taken in stdin. For example,
